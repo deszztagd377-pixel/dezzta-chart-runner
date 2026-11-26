@@ -40,7 +40,7 @@ jobs:
             --url "https://api.cloudflare.com/client/v4/accounts/${CLOUDFLARE_ACCOUNT_ID}/ai/run/@cf/zai-org/glm-4.7-flash" \
             --header "Authorization: Bearer ${CLOUDFLARE_API_TOKEN}" \
             --header "Content-Type: application/json" \
-            --data '{"messages":[{"role":"system","content":"Reply with exactly: DEZZTA_CHART_AI_READY"},{"role":"user","content":"Model connectivity smoke test. Do not provide code."}],"max_tokens":32,"temperature":0}')
+            --data '{"messages":[{"role":"system","content":"Reply with exactly: DEZZTA_CHART_AI_READY"},{"role":"user","content":"Model connectivity smoke test. Do not provide code."}],"max_tokens":512,"temperature":0}')
           echo "Cloudflare Workers AI HTTP status: $status"
           if [[ "$status" != "200" ]]; then
             echo "::error::Workers AI smoke test failed. Response body follows with secrets redacted by omission."
