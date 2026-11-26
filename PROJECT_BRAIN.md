@@ -303,3 +303,12 @@ A fresh source-level audit and GitHub CI log inspection supersedes the older Bat
 - Formal Batch 91 acceptance is still NOT CLOSED pending explicit owner review of final fields, canonical digest encoding, route mapping and synthetic-only compatibility. Do not begin Batch 92 runtime implementation until this gate is closed. Independent Batch 92 failure-injection/test design can proceed.
 - A new reconciliation document was committed to app branch: `docs/WORK_CYCLE_2026-11-26_BATCH91_IMPLEMENTATION_RECONCILIATION.md` (commit `7e1cf25ad332b907869fecc7ff67e1635f1a6d66`). `PROJECT_STATUS.md` was corrected to replace stale "design-only/no source changes" and in-progress CI claims (commit `0dd2d35ec678da31b26fb9a1b091bab2c0801ed9`).
 - This corrects the prior misstatement that Batch 91 source changes were absent and prior CI IDs still running. Do not carry forward that stale state.
+
+## 18. Batch 92 test-design preparation — 26 November 2026
+
+A dependency-safe Batch 92 test plan was created without touching runtime code:
+- App branch file: `docs/WORK_CYCLE_2026-11-26_BATCH92_EVENT_COMMIT_REPLAY_TEST_PLAN.md`.
+- Commit: `782fc5ddb2303faf284c208de24ada656ea2ef5a`.
+- Defines a transactional event-log contract and 22 deterministic cases covering atomic rollback, post-commit fan-out recovery, idempotency, conflicting payload/digest, sequence gap/regression, generation mismatch, payload bounds, contiguous bounded replay, retention floor, integrity holes, cross-series isolation, eviction and concurrent commits.
+- `PROJECT_STATUS.md` links the plan (follow-up docs commit `cd1e4fc33c9b34eff263a476ff6b0172e1cb5a58`).
+- This is design/test preparation only. No Batch 92 runtime source or migration was changed. Runtime implementation remains blocked until Batch 91 formal acceptance is explicitly closed.
