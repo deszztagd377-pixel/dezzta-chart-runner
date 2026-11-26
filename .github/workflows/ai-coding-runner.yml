@@ -43,8 +43,12 @@ jobs:
           OWNER_ACCEPTED: ${{ inputs.confirm_batch91_acceptance || 'false' }}
         run: |
           set -euo pipefail
-          test "$(git -C app branch --show-current)" = "phase-2/market-data-foundation"
           app_head="$(git -C app rev-parse HEAD)"
+          expected_branch_head="$(git -C app rev-parse refs/remotes/origin/phase-2/market-data-foundation)"
+          if [[ "$app_head" != "$expected_branch_head" ]]; then
+            echo "::error::Checkout does not match the approved application branch tip."
+            exit 1
+          fi
           brain_head="$(grep -m1 '^Application HEAD:' PROJECT_BRAIN.md | sed -E 's/.*`([0-9a-f]{40})`.*/\1/')"
           echo "Application HEAD: $app_head"
           echo "Project Brain checkpoint: $brain_head"
