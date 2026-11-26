@@ -267,3 +267,15 @@ Two completed executions of the manual Batch 89 Runtime Gate were inspected dire
 - This evidence does not accept Batch 91, close Stage 1 Gate 10, or authorize Batch 92.
 
 Next bootstrap blocker remains unchanged: the Runner's Workers AI smoke test and AI project audit have no observed executions in the inspected Actions history. Configure the two least-privilege Cloudflare Workers AI secrets in Runner repository settings, then manually run the smoke test and audit. Do not expose secret values in chat. The relay still targets Preflight only.
+
+## 15. Workers AI connectivity verified through connected Cloudflare account — 26 November 2026
+
+A direct Cloudflare API inference smoke test was executed through the connected account (not through GitHub Actions):
+- Model: `@cf/zai-org/glm-4.7-flash`.
+- Endpoint returned `success: true`, no API errors, `finish_reason: stop`, and exact response `DEZZTA_CHART_AI_READY`.
+- Successful request usage: 216 tokens and 6.9972 Neurons.
+- A first deliberately tiny 32-token attempt ended with `finish_reason: length` and no message content because the model's reasoning consumed the output budget; the successful 512-token retry is the valid smoke-test evidence.
+- This confirms the connected Cloudflare account can invoke the selected model. It does **not** prove that GitHub Actions has the required repository secrets or that the committed smoke/audit workflows have run. No GitHub Actions AI smoke-test or AI audit run was found in the inspected recent run history.
+- Keep the existing zero-cost guardrail: one inference only for an actionable queued task, stop on quota/auth/capacity errors, never enable paid Workers AI.
+
+Bootstrap next step: add `CLOUDFLARE_ACCOUNT_ID` and a least-privilege `CLOUDFLARE_API_TOKEN` as Runner repository Actions secrets (do not paste values into chat), then manually dispatch `ai-agent-smoke-test.yml` and `ai-project-audit.yml`. The connected-account smoke test does not replace those GitHub workflow validations.
