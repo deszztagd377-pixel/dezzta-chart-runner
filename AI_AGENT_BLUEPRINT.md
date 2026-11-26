@@ -6,12 +6,12 @@ Status: approved by project owner on 2026-11-26; bootstrap only. Recurring dispa
 
 `cron-job.org (existing 10-minute cadence)` → existing Cloudflare Worker relay → GitHub Actions Runner → Cloudflare Workers AI (`@cf/zai-org/glm-4.7-flash`) → read-only project context → bounded patch proposal → validation → pull request for owner review.
 
-The AI model is a separate Cloudflare-hosted model, not this ChatGPT/GPT-6 session. It receives project context from `PROJECT_MEMORY.md` and the current application `PROJECT_STATUS.md`; it cannot read ChatGPT conversations or memory directly.
+The AI model is a separate Cloudflare-hosted model, not this ChatGPT/GPT-6 session. It must read `PROJECT_BRAIN.md`, `PROJECT_MEMORY.md` and the current application `PROJECT_STATUS.md` plus relevant source documents; it cannot read ChatGPT conversations or memory directly.
 
 ## Bootstrap order
 
 1. Preserve existing `preflight.yml` and manual `batch89-runtime-gate.yml`. Never schedule Batch 89.
-2. Store durable project handoff in `PROJECT_MEMORY.md` (done).
+2. Store durable project handoff in `PROJECT_MEMORY.md` (done) and comprehensive project context in `PROJECT_BRAIN.md` (done).
 3. Validate Cloudflare Workers AI access with the manual-only `ai-agent-smoke-test.yml` (added separately).
 4. After successful model smoke test, implement a bounded read/audit + patch-proposal workflow.
 5. Add app-repository write credentials only when ready to open PRs. Default delivery is a PR; never auto-merge or push to app `main`.
@@ -51,7 +51,7 @@ The model smoke test needs only the first two secrets. The PR-writing workflow m
 
 ## Current bootstrap state
 
-- Durable memory file committed to Runner main: `2a3a85ebca4a3fb92591c13fb58feecf4e01c11f`.
+- Durable memory index and comprehensive project brain are committed to Runner main. Latest brain commit: `28bfc8f3c77cdd9b792a560618f42639fd3c9664`.
 - Manual model smoke test: pending secrets and a manual run.
 - AI code-generation workflow: not yet enabled.
 - Relay still targets the existing Preflight workflow; do not claim the 10-minute automation performs AI coding yet.
