@@ -1,0 +1,48 @@
+name: DEZZTA CHART Preflight
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: dezzta-chart-preflight
+  cancel-in-progress: false
+
+jobs:
+  preflight:
+    name: Safe repository preflight
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout runner repository
+        uses: actions/checkout@v4
+
+      - name: Checkout approved application branch
+        uses: actions/checkout@v4
+        with:
+          repository: deszztagd377-pixel/dezzta-chart
+          ref: phase-2/market-data-foundation
+          path: app
+          persist-credentials: false
+
+      - name: Verify target branch and project manifest
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd app
+          actual_branch="$(git branch --show-current)"
+          actual_commit="$(git rev-parse HEAD)"
+          if [[ "$actual_branch" != "phase-2/market-data-foundation" ]]; then
+            echo "Unexpected branch: $actual_branch" >&2
+            exit 1
+          fi
+          if [[ ! -f package.json ]]; then
+            echo "package.json not found on the approved branch" >&2
+            exit 1
+          fi
+          node -e 'const p=require("./package.json"); console.log("Project:", p.name || "(unnamed)"); console.log("Available scripts:", Object.keys(p.scripts || {}).join(", ") || "none");'
+          echo "Verified branch: $actual_branch"
+          echo "Verified commit: $actual_commit"
+          echo "Preflight only: no install, build, tests, edits, or pushes were performed."
