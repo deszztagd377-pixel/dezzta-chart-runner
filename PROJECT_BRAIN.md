@@ -254,3 +254,16 @@ Every handoff must include:
 - External owner/device/production blockers.
 - Cost/secret/deployment status.
 - Next action in dependency order and approval required.
+
+## 14. Newly verified historical runtime evidence — 26 November 2026
+
+Two completed executions of the manual Batch 89 Runtime Gate were inspected directly, including job steps and decoded logs:
+- Run 45741138139: SUCCESS — https://github.com/deszztagd377-pixel/dezzta-chart-runner/actions/runs/45741138139
+- Run 45741338203: SUCCESS — https://github.com/deszztagd377-pixel/dezzta-chart-runner/actions/runs/45741338203
+- Both checked out application branch `phase-2/market-data-foundation` at exact SHA `4df26a66c9bc36174d35a1ba12e0237cdb74f595`.
+- Both completed locked dependency installation, application tests (34 files / 325 tests passed), production build, Cloudflare Worker runtime test (1 test passed), Durable Object runtime tests (1 file / 11 tests passed), and clean working-tree verification. Both uploaded complete log artifacts (IDs 15080887091 and 15081735867).
+- This is real historical Batch 89 runtime evidence for SHA `4df26a6...`, not proof for the later Batch 91 source/test SHA `2d0d7e9...` or current docs-only HEAD `6c610c4...`. Do not mark the current branch's Batch 89 gate as freshly revalidated. A new manual run on the current approved branch/HEAD is still required before relying on it as current-head evidence.
+- These runs were manually dispatched / push-triggered in the past; **never add Batch 89 to the recurring 10-minute schedule**.
+- This evidence does not accept Batch 91, close Stage 1 Gate 10, or authorize Batch 92.
+
+Next bootstrap blocker remains unchanged: the Runner's Workers AI smoke test and AI project audit have no observed executions in the inspected Actions history. Configure the two least-privilege Cloudflare Workers AI secrets in Runner repository settings, then manually run the smoke test and audit. Do not expose secret values in chat. The relay still targets Preflight only.
