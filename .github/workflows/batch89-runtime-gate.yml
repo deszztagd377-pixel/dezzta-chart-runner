@@ -1,0 +1,120 @@
+name: DEZZTA CHART Batch 89 Runtime Gate
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: dezzta-chart-batch89-runtime-gate
+  cancel-in-progress: false
+
+jobs:
+  batch89:
+    name: Execute approved Batch 89 validation
+    runs-on: ubuntu-latest
+    timeout-minutes: 50
+    steps:
+      - name: Checkout runner repository
+        uses: actions/checkout@v4
+
+      - name: Checkout approved application branch
+        uses: actions/checkout@v4
+        with:
+          repository: deszztagd377-pixel/dezzta-chart
+          ref: phase-2/market-data-foundation
+          path: app
+          persist-credentials: false
+
+      - name: Verify branch and capture exact source SHA
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd app
+          branch="$(git branch --show-current)"
+          sha="$(git rev-parse HEAD)"
+          test "$branch" = "phase-2/market-data-foundation"
+          test -f package.json
+          test -f package-lock.json
+          mkdir -p ../batch89-logs
+          {
+            echo "branch=$branch"
+            echo "sha=$sha"
+            echo "node=$(node --version 2>/dev/null || true)"
+            echo "npm=$(npm --version 2>/dev/null || true)"
+          } | tee ../batch89-logs/source.txt
+          node -e 'const p=require("./package.json"); console.log("package="+p.name+"@"+p.version); console.log("scripts="+Object.keys(p.scripts||{}).join(","));'
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: app/package-lock.json
+
+      - name: Capture runtime versions
+        working-directory: app
+        shell: bash
+        run: |
+          set -euo pipefail
+          {
+            echo "Node: $(node --version)"
+            echo "npm: $(npm --version)"
+          } | tee ../batch89-logs/runtime-versions.txt
+
+      - name: Install locked dependencies
+        working-directory: app
+        shell: bash
+        run: |
+          set -o pipefail
+          npm ci 2>&1 | tee ../batch89-logs/01-npm-ci.log
+
+      - name: Run application test suite
+        working-directory: app
+        shell: bash
+        run: |
+          set -o pipefail
+          npm test -- --reporter=verbose 2>&1 | tee ../batch89-logs/02-npm-test.log
+
+      - name: Build production application
+        working-directory: app
+        shell: bash
+        run: |
+          set -o pipefail
+          npm run build 2>&1 | tee ../batch89-logs/03-build.log
+
+      - name: Run Cloudflare Worker runtime tests
+        working-directory: app
+        shell: bash
+        run: |
+          set -o pipefail
+          npm run test:cloudflare-runtime 2>&1 | tee ../batch89-logs/04-cloudflare-runtime.log
+
+      - name: Run Cloudflare Durable Objects runtime tests
+        working-directory: app
+        shell: bash
+        run: |
+          set -o pipefail
+          npm run test:cloudflare-durable-objects 2>&1 | tee ../batch89-logs/05-durable-objects.log
+
+      - name: Verify source checkout remained unchanged
+        if: always()
+        working-directory: app
+        shell: bash
+        run: |
+          set -euo pipefail
+          git status --short | tee ../batch89-logs/06-git-status.log
+          if [[ -n "$(git status --porcelain)" ]]; then
+            echo "Working tree changed during validation; inspect logs before acceptance." >&2
+            exit 1
+          fi
+
+      - name: Upload complete Batch 89 logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: dezzta-chart-batch89-logs-${{ github.run_id }}
+          path: batch89-logs/
+          if-no-files-found: warn
+          retention-days: 14
