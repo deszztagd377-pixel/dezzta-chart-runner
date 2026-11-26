@@ -1,0 +1,80 @@
+name: DEZZTA CHART AI Coding Runner
+
+on:
+  workflow_dispatch:
+    inputs:
+      confirm_batch91_acceptance:
+        description: "Owner confirms Batch 91 is accepted (required before Batch 92 code work)"
+        required: true
+        type: boolean
+        default: false
+  repository_dispatch:
+    types: [dezzta-chart-ai-cycle]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: dezzta-chart-ai-coding-runner
+  cancel-in-progress: false
+
+jobs:
+  bounded-runner:
+    name: Validate gates and prepare one bounded coding cycle
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout Runner
+        uses: actions/checkout@v4
+
+      - name: Checkout approved application branch read-only
+        uses: actions/checkout@v4
+        with:
+          repository: deszztagd377-pixel/dezzta-chart
+          ref: phase-2/market-data-foundation
+          path: app
+          persist-credentials: false
+
+      - name: Verify exact project checkpoint and owner gate
+        id: gate
+        shell: bash
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          OWNER_ACCEPTED: ${{ inputs.confirm_batch91_acceptance || 'false' }}
+        run: |
+          set -euo pipefail
+          test "$(git -C app branch --show-current)" = "phase-2/market-data-foundation"
+          app_head="$(git -C app rev-parse HEAD)"
+          brain_head="$(grep -m1 '^Application HEAD:' PROJECT_BRAIN.md | sed -E 's/.*`([0-9a-f]{40})`.*/\1/')"
+          echo "Application HEAD: $app_head"
+          echo "Project Brain checkpoint: $brain_head"
+          if [[ "$app_head" != "$brain_head" ]]; then
+            echo "::error::Project Brain is stale; refusing to generate or apply changes."
+            exit 1
+          fi
+          if [[ "$OWNER_ACCEPTED" != "true" ]]; then
+            echo "result=BLOCKED_BATCH91_OWNER_ACCEPTANCE" >> "$GITHUB_OUTPUT"
+            echo "::notice::No application code was changed. Batch 91 owner acceptance is still open."
+            exit 0
+          fi
+          echo "result=GATE_OPEN" >> "$GITHUB_OUTPUT"
+
+      - name: Verify Workers AI credentials are present
+        if: steps.gate.outputs.result == 'GATE_OPEN'
+        shell: bash
+        env:
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: |
+          set -euo pipefail
+          [[ -n "$CLOUDFLARE_ACCOUNT_ID" ]] || { echo "::error::Missing CLOUDFLARE_ACCOUNT_ID repository secret"; exit 1; }
+          [[ -n "$CLOUDFLARE_API_TOKEN" ]] || { echo "::error::Missing CLOUDFLARE_API_TOKEN repository secret"; exit 1; }
+          echo "Required secret names are present; values are not printed."
+
+      - name: Stop safely until task queue and coding contract are owner-approved
+        if: steps.gate.outputs.result == 'GATE_OPEN'
+        shell: bash
+        run: |
+          set -euo pipefail
+          echo "::notice::Batch 91 gate was supplied, but the bounded task queue, source allowlist and fixed test matrix must be independently validated before code generation is enabled."
+          echo "No source changes, commits, Pull Requests, merges or deployments were made."
