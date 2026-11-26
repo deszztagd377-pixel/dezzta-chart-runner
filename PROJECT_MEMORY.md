@@ -1,7 +1,12 @@
 # DEZZTA CHART — AI Agent Project Memory
 
 Last reconciled: 2026-11-26 (Asia/Jakarta)
-Purpose: durable context for automated work. This file is a project handoff, not permission to bypass gates.
+Purpose: compact index/handoff for automated work. The comprehensive source of truth for AI project understanding is `PROJECT_BRAIN.md`; read it first. This file is not permission to bypass gates.
+
+## Mandatory first read
+
+- `PROJECT_BRAIN.md` is the authoritative comprehensive project context: product purpose, final objective, six-stage roadmap, exact current state, all major feature statuses, zero-cost constraints, acceptance gates and agent protocol. Every AI run MUST read it before planning or editing.
+- This file is the compact checkpoint index. If detail is missing here, consult `PROJECT_BRAIN.md` and the live application repository.
 
 ## Repositories and immutable boundaries
 
