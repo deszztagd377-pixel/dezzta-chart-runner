@@ -2,7 +2,7 @@
 
 Last reconciled: 26 November 2026, Asia/Jakarta.
 Application branch audited: `phase-2/market-data-foundation`.
-Application HEAD: `6c610c4de75649126764e0aea200abf09b103521`.
+Application HEAD: `8c94b27e5cccb2de64417aad38829dbf86086ebe`.
 Purpose: give every automated coding agent the durable project purpose, roadmap, engineering constraints, current state, and owner decisions. This document is context, not permission to bypass approval gates.
 
 > Authority rule: always re-read the live application branch, `PROJECT_STATUS.md`, relevant design/acceptance docs, open PRs and exact-HEAD CI before acting. If this file conflicts with newer repository evidence or a direct owner instruction, stop and reconcile; never silently guess.
@@ -55,7 +55,7 @@ The historical overall-project figure 20.9% is not a current recalculated score.
 ## 4. Current application checkpoint (26 November 2026)
 
 - Active branch: `phase-2/market-data-foundation`.
-- Current branch HEAD: `6c610c4de75649126764e0aea200abf09b103521` (documentation-only checkpoint; source/test baseline is earlier).
+- Current branch HEAD: `8c94b27e5cccb2de64417aad38829dbf86086ebe` (documentation-only checkpoint; source/test baseline is earlier).
 - Current `PROJECT_STATUS.md` top checkpoint: **Batch 91 — IMPLEMENTATION IN PROGRESS, NOT ACCEPTED**.
 - Batch 91 source/test SHA: `2d0d7e9a2bf1190961126105d65f77d9926e6789`.
 - Verified exact-source SHA CI runs:
@@ -282,7 +282,7 @@ Bootstrap next step: add `CLOUDFLARE_ACCOUNT_ID` and a least-privilege `CLOUDFLA
 
 ## 16. Project status reconciliation — 26 November 2026 (latest direct check)
 
-- Application branch: `phase-2/market-data-foundation`; current branch HEAD is documentation-only `6c610c4de75649126764e0aea200abf09b103521`.
+- Application branch: `phase-2/market-data-foundation`; current branch HEAD is documentation-only `8c94b27e5cccb2de64417aad38829dbf86086ebe`.
 - Current PROJECT_STATUS identifies latest source/test SHA `2d0d7e9a2bf1190961126105d65f77d9926e6789` as Batch 91 implementation in progress / not accepted. Exact-head CI for that source/test SHA is now terminal 4/4 SUCCESS: Automated Tests run 45746150652; CodeQL 45746150693; Full Git History Secret Audit 45746150657; OCI ARM64 45746150726. These runs all target the exact source/test SHA `2d0d7e9...`; they do not target the later docs-only branch HEAD `6c610c4...`. Do not infer Batch 91 acceptance solely from these four CI workflows; contract/owner acceptance gates remain.
 - Stage accounting remains Stage 1 official active, 30/40 = 75% provisional; Gate 10 0/10 formally closed. Remaining criteria: 8, 20, 25, 30, 31, 34, 35, 36, 38, 39. Overall project and IP3S are NOT SCORED. Stage 2 preparatory only; Stage 4 gated.
 - Batch 90 has historical exact-head acceptance 4/4 on SHA `9a2f2b9faebdcaf1e97e93c6dfe85a2c93319fbb`; Batch 91 is implementation in progress / not accepted; Batch 92 durable event commit/replay; Batch 93 ACK/receipts/high-water/RESUME; Batch 94 lawful zero-cost provider gate; Batch 95 public WSS/browser/Android E2E remain in dependency order.
@@ -316,3 +316,19 @@ A dependency-safe Batch 92 test plan was created without touching runtime code:
 ## 19. Cron relay status correction — 26 November 2026
 
 The Batch 91 reconciliation also found an outdated Cron relay sentence in the app `PROJECT_STATUS.md`. It incorrectly said the relay secrets were absent and the 10-minute schedule inactive. Direct Cloudflare secret-name inventory showed `CRON_SECRET` and `GITHUB_TOKEN` exist (values are not exposed), and recent Runner Actions show successful Preflight dispatches at approximately 10-minute intervals: runs 45824937658, 45826534485, 45828148828, 45829773351 and 45831396293. The relay currently dispatches `preflight.yml` only; this is not AI coding automation. The status file was corrected in app branch commit `8c94b27e5cccb2de64417aad38829dbf86086ebe`. AI smoke/audit execution remains unverified. Never schedule Batch89.
+
+
+## 20. Automation bootstrap correction — 26 November 2026
+
+The current application branch HEAD is `8c94b27e5cccb2de64417aad38829dbf86086ebe`. The recurring 10-minute Cloudflare relay is confirmed active but dispatches `.github/workflows/preflight.yml` only. Therefore the current interval produces Preflight workflow activity, not autonomous application development, code commits, Pull Requests or APK builds. Do not describe this as an AI coding loop.
+
+A concrete defect was found in Runner `.github/workflows/ai-agent-smoke-test.yml`: it requested only 32 output tokens. The same selected Workers AI model previously returned `finish_reason: length` with no message at that budget; a direct connected-account retry succeeded with a 512-token budget. The smoke workflow was corrected to request 512 tokens in Runner commit `ebe9931d12fddc2a8f8866c87853e2e9ec82688f`. This is a workflow configuration fix only; it does not prove the GitHub Actions smoke test has passed.
+
+Remaining prerequisites before any recurring AI coding activation:
+1. Verify Runner repository secrets `CLOUDFLARE_ACCOUNT_ID` and least-privilege `CLOUDFLARE_API_TOKEN` exist without exposing their values.
+2. Manually run and verify the corrected AI model smoke workflow and read-only project audit.
+3. Implement and test a bounded task-queue coding workflow with strict allowlisted paths, fixed commands, quota/auth stop behavior, exact-HEAD validation, branch + PR only, and no auto-merge.
+4. Keep Batch 92 runtime implementation blocked until the owner explicitly accepts Batch 91.
+5. Only after all checks and explicit owner confirmation may the relay dispatch target change from Preflight to the bounded AI coding workflow. Keep the 10-minute cadence unchanged and ensure empty queues produce a no-op.
+
+Never claim the system is autonomously developing the APK until recurring runs produce verifiable task records, code diffs, exact-HEAD test evidence and reviewable Pull Requests.
