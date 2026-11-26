@@ -16,11 +16,11 @@ Purpose: durable context for automated work. This file is a project handoff, not
 ## Current verified application checkpoint
 
 - Active branch: `phase-2/market-data-foundation`.
-- Branch HEAD at handoff: `6c610c4de75649126764e0aea200abf09b103521`.
+- Branch HEAD at handoff: `6c610c4de75649126764e0aea200abf09b103521` (documentation-only checkpoint commit; it does not change application source/tests).
 - Current project ledger: `PROJECT_STATUS.md`, whose top checkpoint is Batch 91 (26 Nov 2026).
 - Batch 91 status: IMPLEMENTATION IN PROGRESS — NOT ACCEPTED. Do not claim acceptance until all exact-head CI checks are terminal SUCCESS on the current HEAD.
 - Batch 91 work concerns provider-neutral protocol metadata/validators, canonical cursor and SHA-256 validation, canonical event digest encoding, snapshot/stream metadata, synthetic-only canonical bar/snapshot/update builders, REST OHLCV exact-series identity, WebSocket status-first auth/subscribe/snapshot/update and versioned text ping/pong, plus Worker/Miniflare/Durable Object regression coverage.
-- The most recent project ledger reports the latest exact-head CI as running for Automated Tests, CodeQL and OCI ARM64; Full Git History Secret Audit succeeded. Re-query CI and compare every run's head SHA before declaring the batch accepted.
+- Verified exact-head CI for source/test SHA `2d0d7e9a2bf1190961126105d65f77d9926e6789`: Automated Tests run `45746150652`, CodeQL `45746150693`, Full Git History Secret Audit `45746150657`, and OCI ARM64 `45746150726` all completed SUCCESS. Branch HEAD is a later documentation-only commit `6c610c4de75649126764e0aea200abf09b103521`. Batch 91 remains marked NOT ACCEPTED in the ledger; do not self-accept it. Confirm owner/acceptance criteria before advancing.
 - Snapshot/live boundary is serialized through a Durable Object-local operation queue. This is synthetic-proof coordination only, not durable replay/ACK storage.
 - Batch 92 scope includes durable event payload/digest/high-water, bounded replay, ACK receipt persistence and resume recovery. Batch 92/93 remain gated behind Batch 91 acceptance.
 - Project stage accounting in the current ledger: Stage 1 remains official active at 30/40 criteria (75% provisional); Gate 10 is 0/10 formally closed. Do not infer overall project percentage or stage transitions from a batch.
