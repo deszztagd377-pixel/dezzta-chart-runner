@@ -1,0 +1,54 @@
+name: DEZZTA CHART AI Agent Model Smoke Test
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: dezzta-chart-ai-smoke-test
+  cancel-in-progress: false
+
+jobs:
+  workers-ai-smoke-test:
+    name: Verify zero-cost Workers AI access
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Require Cloudflare Workers AI credentials
+        shell: bash
+        env:
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: |
+          set -euo pipefail
+          [[ -n "$CLOUDFLARE_ACCOUNT_ID" ]] || { echo "::error::Missing CLOUDFLARE_ACCOUNT_ID repository secret"; exit 1; }
+          [[ -n "$CLOUDFLARE_API_TOKEN" ]] || { echo "::error::Missing CLOUDFLARE_API_TOKEN repository secret"; exit 1; }
+          echo "Required secret names are present. Secret values are not printed."
+
+      - name: Call approved free-tier model
+        shell: bash
+        env:
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: |
+          set -euo pipefail
+          response_file="$(mktemp)"
+          status="$(curl --silent --show-error --output "$response_file" --write-out '%{http_code}' \
+            --request POST \
+            --url "https://api.cloudflare.com/client/v4/accounts/${CLOUDFLARE_ACCOUNT_ID}/ai/run/@cf/zai-org/glm-4.7-flash" \
+            --header "Authorization: Bearer ${CLOUDFLARE_API_TOKEN}" \
+            --header "Content-Type: application/json" \
+            --data '{"messages":[{"role":"system","content":"Reply with exactly: DEZZTA_CHART_AI_READY"},{"role":"user","content":"Model connectivity smoke test. Do not provide code."}],"max_tokens":32,"temperature":0}')
+          echo "Cloudflare Workers AI HTTP status: $status"
+          if [[ "$status" != "200" ]]; then
+            echo "::error::Workers AI smoke test failed. Response body follows with secrets redacted by omission."
+            jq '{success, errors, messages}' "$response_file" || true
+            exit 1
+          fi
+          jq -e '.success == true and ((.result.response // .result.choices[0].message.content // "") | type == "string")' "$response_file" >/dev/null
+          reply="$(jq -r '.result.response // .result.choices[0].message.content' "$response_file")"
+          echo "Model reply: ${reply:0:120}"
+          [[ "$reply" == *"DEZZTA_CHART_AI_READY"* ]] || { echo "::error::Unexpected model response"; exit 1; }
+          echo "Workers AI model smoke test: PASS"
