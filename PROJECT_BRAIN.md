@@ -312,3 +312,7 @@ A dependency-safe Batch 92 test plan was created without touching runtime code:
 - Defines a transactional event-log contract and 22 deterministic cases covering atomic rollback, post-commit fan-out recovery, idempotency, conflicting payload/digest, sequence gap/regression, generation mismatch, payload bounds, contiguous bounded replay, retention floor, integrity holes, cross-series isolation, eviction and concurrent commits.
 - `PROJECT_STATUS.md` links the plan (follow-up docs commit `cd1e4fc33c9b34eff263a476ff6b0172e1cb5a58`).
 - This is design/test preparation only. No Batch 92 runtime source or migration was changed. Runtime implementation remains blocked until Batch 91 formal acceptance is explicitly closed.
+
+## 19. Cron relay status correction — 26 November 2026
+
+The Batch 91 reconciliation also found an outdated Cron relay sentence in the app `PROJECT_STATUS.md`. It incorrectly said the relay secrets were absent and the 10-minute schedule inactive. Direct Cloudflare secret-name inventory showed `CRON_SECRET` and `GITHUB_TOKEN` exist (values are not exposed), and recent Runner Actions show successful Preflight dispatches at approximately 10-minute intervals: runs 45824937658, 45826534485, 45828148828, 45829773351 and 45831396293. The relay currently dispatches `preflight.yml` only; this is not AI coding automation. The status file was corrected in app branch commit `8c94b27e5cccb2de64417aad38829dbf86086ebe`. AI smoke/audit execution remains unverified. Never schedule Batch89.
