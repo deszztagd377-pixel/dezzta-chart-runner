@@ -1,6 +1,6 @@
 # LIVE HANDOFF — 28 NOVEMBER 2026
 
-Latest app status checkpoint: `ecba9d8a369f6cb2ecf4db4bd94fd304fecbe3dd` on `phase-2/market-data-foundation`; validated app source/test baseline `41f42a232a25987513c175ea6d271ae5389b1437`; later active-branch updates are documentation-only. App `main` is unchanged at `e3841681bc69b73619058deaf939df82ae5116a1`.
+Latest app status checkpoint: `a6a7fbc6235f463dd39c980c96639a967815c5b5` on `phase-2/market-data-foundation`; validated app source/test baseline `41f42a232a25987513c175ea6d271ae5389b1437`; later active-branch updates are documentation-only. App `main` is unchanged at `e3841681bc69b73619058deaf939df82ae5116a1`.
 
 PR #4, #9 and #12 now have 4/4 exact-head CI success on their latest source/test heads. PR #12 includes the inactive-consumer reactivation fix and regression test. PR #9 depends on PR #8. PR #4 Footprint UI remains simulated data. PR #13 remains synthetic-only; its latest source/test validation is `e29040d`, while the current branch is 113 ahead / 6 behind and not mergeable. Production FastAPI ACK + durable receipt + lease-aware global outbox retention remain incomplete.
 
