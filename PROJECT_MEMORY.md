@@ -1,6 +1,6 @@
 # DEZZTA CHART — AI Agent Project Memory
 
-Last reconciled: 2026-11-26 (Asia/Jakarta)
+Last reconciled: 2026-11-28 (Asia/Jakarta)
 Purpose: compact index/handoff for automated work. The comprehensive source of truth for AI project understanding is `PROJECT_BRAIN.md`; read it first. This file is not permission to bypass gates.
 
 ## Mandatory first read
@@ -21,7 +21,7 @@ Purpose: compact index/handoff for automated work. The comprehensive source of t
 ## Current verified application checkpoint
 
 - Active branch: `phase-2/market-data-foundation`.
-- Branch HEAD at handoff: `6c610c4de75649126764e0aea200abf09b103521` (documentation-only checkpoint commit; it does not change application source/tests).
+- Branch HEAD at handoff: `9b7facc9ae88d8d525da9f975c32c306963d70b7` (documentation-only checkpoint commit; it does not change application source/tests).
 - Current project ledger: `PROJECT_STATUS.md`, whose top checkpoint is Batch 91 (26 Nov 2026).
 - Batch 91 status: IMPLEMENTATION IN PROGRESS — NOT ACCEPTED. Do not claim acceptance until all exact-head CI checks are terminal SUCCESS on the current HEAD.
 - Batch 91 work concerns provider-neutral protocol metadata/validators, canonical cursor and SHA-256 validation, canonical event digest encoding, snapshot/stream metadata, synthetic-only canonical bar/snapshot/update builders, REST OHLCV exact-series identity, WebSocket status-first auth/subscribe/snapshot/update and versioned text ping/pong, plus Worker/Miniflare/Durable Object regression coverage.
@@ -73,3 +73,14 @@ Purpose: compact index/handoff for automated work. The comprehensive source of t
 - Exact tests/checks and terminal results.
 - Errors, blockers, missing credentials or quota limits.
 - Next action in dependency order.
+
+
+## Live checkpoint reconciliation — 28 November 2026
+
+- The live application branch HEAD is `9b7facc9ae88d8d525da9f975c32c306963d70b7`; latest validated source/test SHA is `41f42a232a25987513c175ea6d271ae5389b1437`. Commits after the validated source/test SHA are docs-only Batch 98/99 updates. Four required workflows on `41f42a2` are terminal SUCCESS: Automated Tests #2664, CodeQL #2009, Secret History Audit #1591 and OCI ARM64 #638.
+- Live `PROJECT_STATUS.md` is on Batch 92–93 execution state. Batch 91 is recorded formally accepted for synthetic-only scope; the stale Batch 91 NOT ACCEPTED statements later in this file are superseded by the live dashboard. Official stage remains Stage 1, 30/40 provisional; Gate 10 0/10 formally closed.
+- Current production gaps: owner-authenticated stable consumer identity, production FastAPI ACK/receipt integration, public WSS/device E2E, lawful zero-cost provider acceptance, and owner-host Stage 1 evidence.
+- Runner AI smoke/audit/coding workflows exist but have no observed runs. The deployed relay still dispatches Preflight only. Cloudflare relay secret names exist, but values remain unread. Cloudflare Cron Trigger list is empty; external cron-job.org state cannot be verified from available connectors. Keep relay target/cadence unchanged until all bootstrap gates pass and owner confirms.
+- Open PRs #7–#13 remain unmerged. PR #8 precedes dependent PR #9; PR #7 is a separate eviction/replay regression. Do not merge without owner approval. Never schedule Batch 89.
+- Project Brain has been reconciled to the current application HEAD so the coding workflow's stale-HEAD guard no longer fails immediately. The coding workflow still requires explicit `confirm_batch91_acceptance=true`, verified Runner AI secrets, and a validated bounded task/patch contract.
+- Next safe task: Batch 93 legacy cursor initialization and Durable Object eviction/restart regression; then replay/compaction rollback fault injection; then production ACK identity integration. ZERO COST; app `main` untouched; no production deployment or relay change.
