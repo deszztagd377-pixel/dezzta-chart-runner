@@ -1,10 +1,12 @@
+> **OWNER OVERRIDE — 28 NOVEMBER 2026: RECURRING 10-MINUTE AUTO-RUN IS CANCELLED.** This is a direct owner decision and supersedes all older text in this file, including historical notes that describe the cadence as active or propose keeping it unchanged. Do not enable, recreate, schedule, or route any recurring trigger (cron-job.org, Cloudflare Cron, GitHub schedule, or replacement). Do not route the relay to Preflight, Batch 89, or AI coding on a recurring basis. Do not treat recurring automation as a pending project deliverable. Manual Actions may only be deliberately initiated for an approved task. Keep the relay configuration untouched/inert; do not delete or repurpose it without separate owner instruction. The external cron-job.org account state is not accessible here, so record the owner cancellation without claiming external account verification.
+
 # DEZZTA CHART AI Development Agent — Bootstrap Blueprint
 
 Status: approved by project owner on 2026-11-26; bootstrap only. Recurring dispatch and repository-writing agent remain disabled until smoke tests, secrets and safety review pass.
 
 ## Architecture
 
-`cron-job.org (existing 10-minute cadence)` → existing Cloudflare Worker relay → GitHub Actions Runner → Cloudflare Workers AI (`@cf/zai-org/glm-4.7-flash`) → read-only project context → bounded patch proposal → validation → pull request for owner review.
+**CANCELLED by owner on 28 November 2026:** the recurring cron-job.org / 10-minute dispatch architecture is not authorized and must not be configured or reactivated. This blueprint is retained as historical design only. No recurring trigger or relay dispatch target may be enabled.
 
 The AI model is a separate Cloudflare-hosted model, not this ChatGPT/GPT-6 session. It must read `PROJECT_BRAIN.md`, `PROJECT_MEMORY.md` and the current application `PROJECT_STATUS.md` plus relevant source documents; it cannot read ChatGPT conversations or memory directly.
 
@@ -15,8 +17,7 @@ The AI model is a separate Cloudflare-hosted model, not this ChatGPT/GPT-6 sessi
 3. Validate Cloudflare Workers AI access with the manual-only `ai-agent-smoke-test.yml` (added separately).
 4. After successful model smoke test, implement a bounded read/audit + patch-proposal workflow.
 5. Add app-repository write credentials only when ready to open PRs. Default delivery is a PR; never auto-merge or push to app `main`.
-6. Test the workflow manually and verify its output before changing the relay dispatch target.
-7. Only after all gates pass, ask/confirm before changing the Worker to dispatch the AI workflow. Do not change the existing 10-minute cron cadence.
+6. No relay dispatch-target change is authorized. The owner explicitly cancelled recurring 10-minute automation on 28 November 2026. Manual workflows, if needed, must be deliberately initiated for a separately approved task.
 
 ## Model and free-tier guardrails
 
@@ -54,4 +55,4 @@ The model smoke test needs only the first two secrets. The PR-writing workflow m
 - Durable memory index and comprehensive project brain are committed to Runner main. Latest brain commit: `28bfc8f3c77cdd9b792a560618f42639fd3c9664`.
 - Manual model smoke test: pending secrets and a manual run.
 - AI code-generation workflow: not yet enabled.
-- Relay still targets the existing Preflight workflow; do not claim the 10-minute automation performs AI coding yet.
+- Owner decision 28 Nov 2026: recurring 10-minute automation is cancelled. Do not reactivate or repurpose the relay. External cron-job.org state has not been independently inspected.
