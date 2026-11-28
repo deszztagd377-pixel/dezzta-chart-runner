@@ -1,6 +1,6 @@
 # LIVE CHECKPOINT — 28 NOVEMBER 2026 (SUPERSEDES OLDER SNAPSHOTS)
 
-- Active app branch: `phase-2/market-data-foundation`; latest app status/documentation checkpoint commit: `ecba9d8a369f6cb2ecf4db4bd94fd304fecbe3dd`. Active-branch source/test baseline remains `41f42a232a25987513c175ea6d271ae5389b1437`; later active-branch commits in this reconciliation are documentation-only.
+- Active app branch: `phase-2/market-data-foundation`; latest app status/documentation checkpoint commit: `a6a7fbc6235f463dd39c980c96639a967815c5b5`. Active-branch source/test baseline remains `41f42a232a25987513c175ea6d271ae5389b1437`; later active-branch commits in this reconciliation are documentation-only.
 - App `main` remains `e3841681bc69b73619058deaf939df82ae5116a1` and untouched.
 - Exact-head PR validation: PR #4 clickable Footprint UI tests, PR #9 compaction/replay fault injection, and PR #12 required-consumer registry/reactivation fix each have 4/4 required workflows SUCCESS on their stated current source/test heads. PR #7, #8, #10, #11 also retain exact-head 4/4 evidence.
 - PR #12 reactivation regression fix commit `b375ada72e7a1af1211c75f70c1cceb9d1f754a7` passed Automated Tests, CodeQL, OCI ARM64 and full-history secret audit. Its branch is 8 ahead / 6 behind the active base; GitHub reports mergeable, but do not merge automatically.
