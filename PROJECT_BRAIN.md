@@ -1,3 +1,18 @@
+# LIVE CHECKPOINT — 28 NOVEMBER 2026 (SUPERSEDES OLDER SNAPSHOTS)
+
+- Active app branch: `phase-2/market-data-foundation`; latest app status/documentation checkpoint commit: `ecba9d8a369f6cb2ecf4db4bd94fd304fecbe3dd`. Active-branch source/test baseline remains `41f42a232a25987513c175ea6d271ae5389b1437`; later active-branch commits in this reconciliation are documentation-only.
+- App `main` remains `e3841681bc69b73619058deaf939df82ae5116a1` and untouched.
+- Exact-head PR validation: PR #4 clickable Footprint UI tests, PR #9 compaction/replay fault injection, and PR #12 required-consumer registry/reactivation fix each have 4/4 required workflows SUCCESS on their stated current source/test heads. PR #7, #8, #10, #11 also retain exact-head 4/4 evidence.
+- PR #12 reactivation regression fix commit `b375ada72e7a1af1211c75f70c1cceb9d1f754a7` passed Automated Tests, CodeQL, OCI ARM64 and full-history secret audit. Its branch is 8 ahead / 6 behind the active base; GitHub reports mergeable, but do not merge automatically.
+- PR #9 current head `22a05379ea957db93f1909867a74b28cfc5f22c9` passed all four required workflows. It depends on PR #8. CI branch triggers were extended for `test/**` so the full workflow set executes on test branches.
+- PR #4 current head `884559e89517d237d256189be17d14deb28a240c` passed all four required workflows including new jsdom component interaction tests. The UI uses explicitly simulated sample data; it is not a live bid/ask feed.
+- PR #13 current head `249ae9932784cf713baf7c5b5f11358ca9b456e7`; source/test validation remains on `e29040d4f3e9e5da5c9dd1400e102f5139b9ba41` (4/4). Current PR is 113 ahead / 6 behind and not mergeable. Production FastAPI still lacks ACK receive/receipt commit and capability advertisement. Additionally the SQLite global outbox retention floor advances at 100,000 events without consulting consumer leases/receipts; production ACK must be tied to global cursor and lease-aware retention before enablement.
+- Stage 1 remains 30/40 = 75% provisional 🟨; Gate 10 0/10 formally closed; owner-controlled open criteria 8,20,25,30,31,34,35,36,38,39. Stage 2 remains preparatory only.
+- Actions audit after PR #4/#9/#12 validation: no in-progress workflow remained in the 100 latest application runs.
+- Owner cancellation is final: recurring 10-minute auto-running is CANCELLED. No cron-job.org, Cloudflare Cron, GitHub schedule, replacement trigger, or recurring relay dispatch may be created or reactivated. Manual workflows only when deliberately initiated for approved tasks. Existing relay is not to be deleted or repurposed without separate owner instruction; external cron-job.org state is not independently accessible.
+
+---
+
 
 
 ## Live checkpoint refresh — 28 November 2026 (owner cancellation + PR evidence)
