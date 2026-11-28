@@ -2,7 +2,7 @@
 
 ## Live checkpoint refresh — 28 November 2026 (owner cancellation + PR evidence)
 
-- Current app branch HEAD: `43bc43ae214dbb63dc4e05e67e33cc3525af24ad` (documentation-only status reconciliation). Latest validated source/test SHA remains `41f42a232a25987513c175ea6d271ae5389b1437`, with exact-head required CI 4/4 SUCCESS; no application runtime source/test changes followed that SHA.
+- Current app branch HEAD: `cb887950ae9a24f087cd2e3252097e7df5a19723` (documentation-only status reconciliation). Latest validated source/test SHA remains `41f42a232a25987513c175ea6d271ae5389b1437`, with exact-head required CI 4/4 SUCCESS; no application runtime source/test changes followed that SHA.
 - The app dashboard now explicitly records the owner's cancellation of recurring 10-minute automation. No cron-job.org, Cloudflare Cron, GitHub schedule, replacement trigger, or recurring relay dispatch is authorized. Do not reactivate, route, delete, or repurpose the relay without separate owner instruction. External cron-job.org state is not independently accessible.
 - Actions reconciliation: no in-progress runs in the 100 latest app runs or all 14 Runner runs checked. PR #7 and #8 each have 4/4 required workflows successful on their current heads; PR #9 has successful Automated Tests on its current head but no complete 4/4 set observed; PR #13 has 4/4 on validated source/test SHA `e29040d` but is now 4 commits behind/diverged from the app base. All PRs remain unmerged.
 - Official Stage 1 remains 30/40 (75% provisional), Gate 10 0/10 formally closed, remaining criteria 8,20,25,30,31,34,35,36,38,39. Stage 2 preparatory only.
@@ -12,7 +12,7 @@
 
 Last reconciled: 28 November 2026, Asia/Jakarta.
 Application branch audited: `phase-2/market-data-foundation`.
-Application HEAD: `43bc43ae214dbb63dc4e05e67e33cc3525af24ad`.
+Application HEAD: `cb887950ae9a24f087cd2e3252097e7df5a19723`.
 Purpose: give every automated coding agent the durable project purpose, roadmap, engineering constraints, current state, and owner decisions. This document is context, not permission to bypass approval gates.
 
 > Authority rule: always re-read the live application branch, `PROJECT_STATUS.md`, relevant design/acceptance docs, open PRs and exact-HEAD CI before acting. If this file conflicts with newer repository evidence or a direct owner instruction, stop and reconcile; never silently guess.
@@ -23,7 +23,7 @@ Purpose: give every automated coding agent the durable project purpose, roadmap,
 **Live repository evidence takes precedence over older dated snapshots in this file.**
 
 - Application branch: `phase-2/market-data-foundation`.
-- Application branch HEAD at reconciliation: `43bc43ae214dbb63dc4e05e67e33cc3525af24ad` (documentation-only Batch 99 checkpoint; no application source/test changes in Batch 98/99).
+- Application branch HEAD at reconciliation: `cb887950ae9a24f087cd2e3252097e7df5a19723` (documentation-only Batch 99 checkpoint; no application source/test changes in Batch 98/99).
 - Latest source/test validation SHA: `41f42a232a25987513c175ea6d271ae5389b1437`. The six commits from the previous Batch 93 source/test SHA `9e7a7ec4534e0985b9ad123d70edfe9fdec76418` to `41f42a2` modify CI workflow configuration, PROJECT_STATUS/report documentation, and the Volume Profile requirements document; no application runtime source/test files changed in that comparison. Four required workflows on `41f42a2` are terminal SUCCESS: Automated Tests #2664 (46108286306), Secret History Audit #1591 (46108286305), OCI ARM64 #638 (46108286297), CodeQL #2009 (46108286284).
 - Current app dashboard top section is Batch 92–93 execution state (27 Nov 2026), not the old Batch 91 implementation-in-progress snapshot in Section 4 below. Batch 91 is formally recorded as accepted for its synthetic-only scope in the live app `PROJECT_STATUS.md`; do not carry forward the older 26 Nov NOT ACCEPTED state. Batch 92/93 work is synthetic Worker/SQLite Durable Object proof only. Production WebSocket ACK/RESUME, stable owner-authenticated consumer identity, public WSS/device E2E and provider acceptance remain YELLOW/open.
 - Official project stage remains Stage 1, 30/40 criteria (75% provisional); Gate 10 is 0/10 formally closed. Remaining Stage 1 owner-host/device/production evidence criteria: 8, 20, 25, 30, 31, 34, 35, 36, 38, 39. No overall-project score is approved. Stage 2 is not the official active stage.
