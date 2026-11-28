@@ -2,7 +2,7 @@
 
 ## Live handoff refresh — 28 November 2026
 
-- App branch HEAD at this handoff: `43bc43ae214dbb63dc4e05e67e33cc3525af24ad`; latest validated source/test SHA: `41f42a232a25987513c175ea6d271ae5389b1437` (required CI 4/4 success on that exact SHA).
+- App branch HEAD at this handoff: `cb887950ae9a24f087cd2e3252097e7df5a19723`; latest validated source/test SHA: `41f42a232a25987513c175ea6d271ae5389b1437` (required CI 4/4 success on that exact SHA).
 - Owner explicitly cancelled recurring 10-minute automation. Do not configure/recreate any schedule or route the relay to recurring workflows. External cron-job.org state has not been inspected; cancellation is an owner instruction.
 - Current Actions audit found no in-progress workflows. PR #7/#8 4/4 success; PR #9 Automated Tests success but no full 4/4 evidence; PR #13 4/4 on validated SHA but branch is now 4 commits behind/diverged. None merged.
 - Stage 1 remains 30/40 provisional; Gate 10 0/10 formally closed.> **OWNER OVERRIDE — 28 NOVEMBER 2026: RECURRING 10-MINUTE AUTO-RUN IS CANCELLED.** This is a direct owner decision and supersedes all older text in this file, including historical notes that describe the cadence as active or propose keeping it unchanged. Do not enable, recreate, schedule, or route any recurring trigger (cron-job.org, Cloudflare Cron, GitHub schedule, or replacement). Do not route the relay to Preflight, Batch 89, or AI coding on a recurring basis. Do not treat recurring automation as a pending project deliverable. Manual Actions may only be deliberately initiated for an approved task. Keep the relay configuration untouched/inert; do not delete or repurpose it without separate owner instruction. The external cron-job.org account state is not accessible here, so record the owner cancellation without claiming external account verification.
@@ -30,7 +30,7 @@ Purpose: compact index/handoff for automated work. The comprehensive source of t
 ## Current verified application checkpoint
 
 - Active branch: `phase-2/market-data-foundation`.
-- Branch HEAD at handoff: `43bc43ae214dbb63dc4e05e67e33cc3525af24ad` (documentation-only checkpoint commit; it does not change application source/tests).
+- Branch HEAD at handoff: `cb887950ae9a24f087cd2e3252097e7df5a19723` (documentation-only checkpoint commit; it does not change application source/tests).
 - Current project ledger: `PROJECT_STATUS.md`, whose top checkpoint is Batch 91 (26 Nov 2026).
 - Batch 91 status: IMPLEMENTATION IN PROGRESS — NOT ACCEPTED. Do not claim acceptance until all exact-head CI checks are terminal SUCCESS on the current HEAD.
 - Batch 91 work concerns provider-neutral protocol metadata/validators, canonical cursor and SHA-256 validation, canonical event digest encoding, snapshot/stream metadata, synthetic-only canonical bar/snapshot/update builders, REST OHLCV exact-series identity, WebSocket status-first auth/subscribe/snapshot/update and versioned text ping/pong, plus Worker/Miniflare/Durable Object regression coverage.
@@ -86,7 +86,7 @@ Purpose: compact index/handoff for automated work. The comprehensive source of t
 
 ## Live checkpoint reconciliation — 28 November 2026
 
-- The live application branch HEAD is `43bc43ae214dbb63dc4e05e67e33cc3525af24ad`; latest validated source/test SHA is `41f42a232a25987513c175ea6d271ae5389b1437`. Commits after the validated source/test SHA are docs-only Batch 98/99 updates. Four required workflows on `41f42a2` are terminal SUCCESS: Automated Tests #2664, CodeQL #2009, Secret History Audit #1591 and OCI ARM64 #638.
+- The live application branch HEAD is `cb887950ae9a24f087cd2e3252097e7df5a19723`; latest validated source/test SHA is `41f42a232a25987513c175ea6d271ae5389b1437`. Commits after the validated source/test SHA are docs-only Batch 98/99 updates. Four required workflows on `41f42a2` are terminal SUCCESS: Automated Tests #2664, CodeQL #2009, Secret History Audit #1591 and OCI ARM64 #638.
 - Live `PROJECT_STATUS.md` is on Batch 92–93 execution state. Batch 91 is recorded formally accepted for synthetic-only scope; the stale Batch 91 NOT ACCEPTED statements later in this file are superseded by the live dashboard. Official stage remains Stage 1, 30/40 provisional; Gate 10 0/10 formally closed.
 - Current production gaps: owner-authenticated stable consumer identity, production FastAPI ACK/receipt integration, public WSS/device E2E, lawful zero-cost provider acceptance, and owner-host Stage 1 evidence.
 - Runner AI smoke/audit/coding workflows exist but have no observed runs. The deployed relay still dispatches Preflight only. Cloudflare relay secret names exist, but values remain unread. Cloudflare Cron Trigger list is empty; external cron-job.org state cannot be verified from available connectors. Keep relay target/cadence unchanged until all bootstrap gates pass and owner confirms.
