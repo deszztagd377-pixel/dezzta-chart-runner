@@ -1,3 +1,5 @@
+> **OWNER OVERRIDE — 28 NOVEMBER 2026: RECURRING 10-MINUTE AUTO-RUN IS CANCELLED.** This is a direct owner decision and supersedes all older text in this file, including historical notes that describe the cadence as active or propose keeping it unchanged. Do not enable, recreate, schedule, or route any recurring trigger (cron-job.org, Cloudflare Cron, GitHub schedule, or replacement). Do not route the relay to Preflight, Batch 89, or AI coding on a recurring basis. Do not treat recurring automation as a pending project deliverable. Manual Actions may only be deliberately initiated for an approved task. Keep the relay configuration untouched/inert; do not delete or repurpose it without separate owner instruction. The external cron-job.org account state is not accessible here, so record the owner cancellation without claiming external account verification.
+
 # DEZZTA CHART — AI Agent Project Memory
 
 Last reconciled: 2026-11-28 (Asia/Jakarta)
@@ -61,8 +63,8 @@ Purpose: compact index/handoff for automated work. The comprehensive source of t
 - Existing relay dispatches the Runner's safe Preflight workflow; that successful preflight is not AI coding.
 - A separate AI workflow/model is not this ChatGPT session or GPT-6 and has no automatic access to ChatGPT memory. This file is the explicit memory handoff.
 - AI inference and app-repository PR creation require separately configured, least-privilege GitHub Actions secrets. Until they exist and are validated, the AI workflow must stop safely without attempting model calls or writes.
-- Do not alter cron-job.org cadence, Cloudflare Worker secrets/configuration, or relay dispatch target without explicit owner approval.
-- Do not assume every 10-minute trigger should invoke inference. Run only when a bounded task is queued and within the verified free quota.
+- OWNER DECISION 28 Nov 2026: recurring 10-minute auto-running is CANCELLED. Do not configure/recreate cron-job.org, Cloudflare Cron, GitHub schedules or replacements; do not route the relay to any recurring workflow. Manual runs are separate and require deliberate approval. Do not delete or repurpose the relay without separate instruction.
+- No recurring trigger is authorized. The owner's cancellation supersedes all prior 10-minute cadence plans; do not schedule inference or any other workflow.
 - Never trigger Batch 89 on the recurring schedule.
 
 ## Session handoff format
