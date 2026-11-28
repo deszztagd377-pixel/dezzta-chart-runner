@@ -1,11 +1,31 @@
 # DEZZTA CHART — PROJECT BRAIN (Authoritative AI Handoff)
 
-Last reconciled: 26 November 2026, Asia/Jakarta.
+Last reconciled: 28 November 2026, Asia/Jakarta.
 Application branch audited: `phase-2/market-data-foundation`.
-Application HEAD: `8c94b27e5cccb2de64417aad38829dbf86086ebe`.
+Application HEAD: `9b7facc9ae88d8d525da9f975c32c306963d70b7`.
 Purpose: give every automated coding agent the durable project purpose, roadmap, engineering constraints, current state, and owner decisions. This document is context, not permission to bypass approval gates.
 
 > Authority rule: always re-read the live application branch, `PROJECT_STATUS.md`, relevant design/acceptance docs, open PRs and exact-HEAD CI before acting. If this file conflicts with newer repository evidence or a direct owner instruction, stop and reconcile; never silently guess.
+
+
+## 0. Live checkpoint reconciliation — 28 November 2026 (supersedes stale 26 Nov checkpoint fields below)
+
+**Live repository evidence takes precedence over older dated snapshots in this file.**
+
+- Application branch: `phase-2/market-data-foundation`.
+- Application branch HEAD at reconciliation: `9b7facc9ae88d8d525da9f975c32c306963d70b7` (documentation-only Batch 99 checkpoint; no application source/test changes in Batch 98/99).
+- Latest source/test validation SHA: `41f42a232a25987513c175ea6d271ae5389b1437`. The six commits from the previous Batch 93 source/test SHA `9e7a7ec4534e0985b9ad123d70edfe9fdec76418` to `41f42a2` modify CI workflow configuration, PROJECT_STATUS/report documentation, and the Volume Profile requirements document; no application runtime source/test files changed in that comparison. Four required workflows on `41f42a2` are terminal SUCCESS: Automated Tests #2664 (46108286306), Secret History Audit #1591 (46108286305), OCI ARM64 #638 (46108286297), CodeQL #2009 (46108286284).
+- Current app dashboard top section is Batch 92–93 execution state (27 Nov 2026), not the old Batch 91 implementation-in-progress snapshot in Section 4 below. Batch 91 is formally recorded as accepted for its synthetic-only scope in the live app `PROJECT_STATUS.md`; do not carry forward the older 26 Nov NOT ACCEPTED state. Batch 92/93 work is synthetic Worker/SQLite Durable Object proof only. Production WebSocket ACK/RESUME, stable owner-authenticated consumer identity, public WSS/device E2E and provider acceptance remain YELLOW/open.
+- Official project stage remains Stage 1, 30/40 criteria (75% provisional); Gate 10 is 0/10 formally closed. Remaining Stage 1 owner-host/device/production evidence criteria: 8, 20, 25, 30, 31, 34, 35, 36, 38, 39. No overall-project score is approved. Stage 2 is not the official active stage.
+- Open application PRs at reconciliation: #7 eviction/replay test; #8 legacy cursor authority recovery; #9 compaction rollback (based on #8); #10 provider eligibility audit; #11 Cloudflare/WS inventory; #12 required-consumer registry; #13 synthetic WebSocket ACK protocol. All remain unmerged. PR #8 and PR #9 are dependency-ordered (#8 before #9); PR #7 is a separate Batch 93 regression slice. Do not merge without explicit owner approval. PR #13 remains synthetic-only and does not provide production FastAPI ACK integration.
+- Runner AI workflows exist but have no observed executions in the current Runner Actions history: `ai-agent-smoke-test.yml`, `ai-project-audit.yml`, `ai-coding-runner.yml`. Their presence is not evidence of AI automation. The Runner history shows Preflight runs only (latest observed run #45836285961 at 26 Nov 14:10 UTC) and manual Batch 89 runs; never schedule Batch 89.
+- Cloudflare relay `dezzta-chart-runner-relay` is deployed and contains secret bindings named `CRON_SECRET` and `GITHUB_TOKEN` (values must never be read or printed). Deployed Worker code dispatches `preflight.yml` only. Cloudflare Cron Trigger schedule list is empty; the relay is driven externally if cron-job.org is enabled. The repository README says keep cron-job.org inactive until a lightweight recurring task is approved. External cron-job.org state is not directly readable through available connectors; do not claim it is active or inactive without fresh evidence.
+- The separate AI coding bootstrap remains gated: the Workers AI direct account smoke was previously successful, but GitHub Actions model smoke and read-only project audit have not been observed. Runner repository secrets `CLOUDFLARE_ACCOUNT_ID` and `CLOUDFLARE_API_TOKEN` could not be verified through available GitHub connector permissions. The coding workflow also requires the explicit `confirm_batch91_acceptance=true` dispatch input and an exact Brain HEAD match. This Brain HEAD has been reconciled to the live app HEAD, but do not alter relay routing/cadence or enable recurring coding until the manual smoke, read-only audit, bounded coding workflow validation, secret prerequisites and explicit owner confirmation are all satisfied.
+- ZERO COST; application `main` remains untouched; no production deployment, paid resource, billing change, secret value read, or relay target/cadence change was made during this reconciliation.
+
+**Next safe engineering order from the live dashboard:** finish Batch 93 interrupted legacy-cursor initialization/DO eviction-restart persistence regression; then concurrent replay/compaction and rollback/corruption fault injection; then production ACK only after owner-authenticated stable consumer identity is defined. In parallel, owner-controlled Stage 1 Gate 10 evidence must be collected without pretending GitHub CI can supply host/device proof. Delivery target remains 24 December 2026.
+
+---
 
 ## 1. Project identity and final objective
 
