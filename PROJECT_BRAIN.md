@@ -1,3 +1,5 @@
+> **OWNER OVERRIDE — 28 NOVEMBER 2026: RECURRING 10-MINUTE AUTO-RUN IS CANCELLED.** This is a direct owner decision and supersedes all older text in this file, including historical notes that describe the cadence as active or propose keeping it unchanged. Do not enable, recreate, schedule, or route any recurring trigger (cron-job.org, Cloudflare Cron, GitHub schedule, or replacement). Do not route the relay to Preflight, Batch 89, or AI coding on a recurring basis. Do not treat recurring automation as a pending project deliverable. Manual Actions may only be deliberately initiated for an approved task. Keep the relay configuration untouched/inert; do not delete or repurpose it without separate owner instruction. The external cron-job.org account state is not accessible here, so record the owner cancellation without claiming external account verification.
+
 # DEZZTA CHART — PROJECT BRAIN (Authoritative AI Handoff)
 
 Last reconciled: 28 November 2026, Asia/Jakarta.
@@ -253,6 +255,9 @@ Stop safely if model quota, API access, credentials, tests, parsing, branch iden
 
 ## 12. Automation boundary
 
+**Current owner decision (28 Nov 2026): recurring 10-minute automation is CANCELLED.** No cron-job.org, Cloudflare Cron, GitHub schedule, or replacement recurring trigger may be enabled or recreated. The relay must not be routed to any recurring workflow. Older paragraphs in this section and historical sections describing a 10-minute cadence are superseded. Manual workflows are distinct and may only be deliberately initiated for approved work. Do not delete or repurpose the existing relay without separate instruction.
+
+
 The Runner currently has a separate safe Preflight workflow. The Cloudflare relay/cron path has historically dispatched Preflight only; a successful Preflight is not an AI coding run. The AI model is a separate Cloudflare Workers AI model, not ChatGPT/GPT-6, and cannot directly access ChatGPT conversation memory.
 
 The Runner repository's AI bootstrap blueprint and manual model smoke-test workflow are separate from the app. Do not claim recurring AI coding is active until:
@@ -261,7 +266,7 @@ The Runner repository's AI bootstrap blueprint and manual model smoke-test workf
 - bounded read-only task workflow is implemented and tested;
 - patch safety, fixed tests, quota stop and PR-only write path are validated;
 - only then, after owner confirmation, relay routing is changed to the AI workflow.
-Do not alter the 10-minute cron cadence. Run inference only when an approved task is queued; no-op when queue is empty. Never schedule Batch 89.
+Recurring dispatch is cancelled and must not be used. Manual inference or workflow runs require a separately approved, deliberate task. Never schedule Batch 89.
 
 ## 13. Session checkpoint format
 
