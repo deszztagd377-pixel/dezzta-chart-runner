@@ -1,42 +1,40 @@
 # DEZZTA CHART Runner
 
-Zero-cost automation scaffold for DEZZTA CHART.
+Zero-cost automation and validation scaffold for DEZZTA CHART. It does not provide autonomous background coding.
 
-## Repositories and branch boundary
+## Application repository and branch policy
 
-- Runner repository: `deszztagd377-pixel/dezzta-chart-runner` (default branch `main`).
 - Application repository: `deszztagd377-pixel/dezzta-chart`.
-- Application work is restricted to `phase-2/market-data-foundation`.
-- Never write to `main` in the application repository.
+- Approved integration base: `phase-2/market-data-foundation`.
+- Feature work must occur on a reviewed work branch and be proposed through a pull request against the integration base.
+- Never write to the application repository's `main`.
+- Active PR #13 is `work/batch95-websocket-ack-protocol`; current app checkpoint and exact CI evidence are recorded in the top of `PROJECT_BRAIN.md`. Its branch is currently non-mergeable and must not be force-pushed or merged blindly.
 
-## Workflows
+## Workflow inventory and safe use
 
-- `.github/workflows/preflight.yml`: manually dispatched repository/branch preflight only. It does not install dependencies or run tests.
-- `.github/workflows/batch89-runtime-gate.yml`: manually dispatched Batch 89 runtime validation. It runs `npm ci`, the application test suite, production build, Cloudflare Worker runtime tests, Durable Objects runtime tests, then checks the source working tree and uploads logs.
+- `.github/workflows/preflight.yml`: manual, read-only preflight. It checks out the integration base; it does not install dependencies, run tests, edit files, push commits, or validate the active PR branch.
+- `.github/workflows/batch89-runtime-gate.yml`: heavyweight manual validation for an older batch. Do not dispatch it for current PR #13 without a new, explicit approval and an updated source/branch contract.
+- `.github/workflows/ai-coding-runner.yml`: legacy gated scaffold. It references Batch 91 acceptance and the integration-base Project Brain SHA; it does not currently generate or apply code. Do not treat its presence as an active coding agent.
+- `.github/workflows/ai-project-audit.yml` and `ai-agent-smoke-test.yml`: manual Cloudflare Workers AI calls. They require credentials and consume a service quota; do not assume they are zero-cost or trigger them without a separately verified free allowance and approval.
 
-The Batch 89 workflow is intentionally manual. It can take a substantial amount of time and must not be triggered every 10 minutes.
+## Automation cancellation — owner instruction
 
-## Automation relay status
+**The recurring 10-minute automation is cancelled.** Do not create, enable, or replace any cron-job.org schedule, Cloudflare Cron Trigger, GitHub schedule, or recurring relay dispatch. Do not route the relay to Preflight, Batch 89, or AI coding. The existing relay configuration must remain untouched/inert unless the owner separately instructs otherwise. External cron-job.org account state is not accessible from this repository, so do not claim it was verified.
 
-A Cloudflare Worker relay has been deployed separately. Keep cron-job.org inactive until a specific lightweight recurring task is approved and the relay's secrets and dispatch target are configured. Do not point a 10-minute schedule at the Batch 89 validation workflow.
+## Current project constraints
 
-## Relay request contract
+- Official stage: Stage 1 only, 30/40 provisional; Gate 10 0/10 formally closed. Stage 2 is blocked until Stage 1 reaches 40/40 and the owner explicitly approves.
+- No Footprint, Volume Profile, or Heatmap feature development during Stage 1; foundation work only.
+- Delivery target: 24 December 2026.
+- ZERO COST: no paid plans, trials, services, model APIs, infrastructure or billing changes.
+- Never claim a workflow is running or successful without querying its exact commit and terminal status. Do not claim unattended waiting or background work.
 
-The deployed Worker relay is `https://dezzta-chart-runner-relay.deszztagd377.workers.dev`.
+## Relay boundary
 
-- Liveness check: `GET /health`. This confirms the Worker responds; it does not prove dispatch credentials are configured.
-- Dispatch: `POST /trigger`, with an `Authorization: Bearer <CRON_SECRET>` header and no request body.
-- The Worker requires two Cloudflare secrets: `CRON_SECRET` and `GITHUB_TOKEN`.
-- `CRON_SECRET` must be a high-entropy value of at least 32 characters. Store the same value in the cron service's Authorization header; never commit or paste it into repository files.
-- `GITHUB_TOKEN` must be a repository-scoped GitHub token with Actions: write permission for this runner repository, so the relay can dispatch `preflight.yml`.
-- A successful dispatch responds with HTTP 202. Missing secrets respond with HTTP 503; invalid bearer authentication responds with HTTP 401.
-- The preflight workflow runs on the runner repository's `main` branch only, then checks out the application repository's approved `phase-2/market-data-foundation` branch. It does not write to the application repository.
-- The 10-minute cron-job.org schedule remains inactive until both Worker secrets are configured and a manual dispatch test returns HTTP 202. Do not schedule `batch89-runtime-gate.yml`; it is a heavyweight manual validation workflow.
+The deployed Worker relay is documented as `https://dezzta-chart-runner-relay.deszztagd377.workers.dev`, but its configuration must not be changed or repurposed. A successful health check proves only that the Worker responds; it does not prove that an external scheduler is configured. No recurring trigger is authorized.
 
-## Safety and cost boundaries
+## Secrets and safety
 
-- No paid services, model APIs, or market-data subscriptions are assumed.
-- No autonomous AI coding is provided by GitHub Actions; workflows execute only the tasks explicitly defined here.
-- Secrets must be stored in GitHub Actions or Cloudflare secret storage, never committed here or pasted into chat.
-- Do not run the full application CI every 10 minutes.
-- Preserve existing application features and require evidence before marking any batch accepted.
+- Keep secrets in approved GitHub Actions or Cloudflare secret storage; never commit or paste values into chat.
+- Do not read, print, rotate, delete, or repurpose relay secrets as part of ordinary project work.
+- Preserve the application feature set and require exact-head CI and owner evidence before accepting a batch.

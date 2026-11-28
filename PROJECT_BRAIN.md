@@ -1,5 +1,22 @@
 # LIVE CHECKPOINT — 28 NOVEMBER 2026 (SUPERSEDES OLDER SNAPSHOTS)
 
+# CURRENT CROSS-REPOSITORY AUTHORITY — 28 NOVEMBER 2026 (supersedes stale checkpoints below)
+
+- Application integration base: `phase-2/market-data-foundation`, HEAD `106082a92b1876125ccdf24065b751c000f1de8a`.
+- Active application engineering PR: [#13](https://github.com/deszztagd377-pixel/dezzta-chart/pull/13), branch `work/batch95-websocket-ack-protocol`, HEAD `208165820ae0b02cfb55eff4b388786d55b6277b`. PR is OPEN, unmerged, and non-mergeable; comparison is 194 ahead / 16 behind. Never force-push or merge without safe divergence reconciliation and owner authorization.
+- Application `main` is not the work target. Feature work stays on reviewed work branches and PRs against the approved integration base.
+- Current production WebSocket ACK: FastAPI route integration exists, feature flag defaults OFF, and durable receipts are guarded by Redis lease/fencing. The latest change adds a narrow Redis ACL key pattern and a real Redis TLS/ACL lease integration test. Production activation remains blocked on owner-host WSS, Firebase identity/revocation/entitlement, durable SQLite topology, browser/Android E2E, and capacity/retention evidence.
+- Exact current app-head CI for `2081658`: Automated Tests [46160324003](https://github.com/deszztagd377-pixel/dezzta-chart/actions/runs/46160324003) was IN PROGRESS at the last check; CodeQL [46160323886](https://github.com/deszztagd377-pixel/dezzta-chart/actions/runs/46160323886) SUCCESS; OCI ARM64 [46160323975](https://github.com/deszztagd377-pixel/dezzta-chart/actions/runs/46160323975) SUCCESS; Secret Audit [46160323966](https://github.com/deszztagd377-pixel/dezzta-chart/actions/runs/46160323966) SUCCESS. Re-query the run before accepting; never infer success from a previous SHA.
+- Official stage: Stage 1 only, 30/40 provisional (75%); Gate 10 0/10 formally closed. Stage 2 cannot begin until 40/40 and explicit owner approval. No Footprint, Volume Profile or Heatmap feature development during Stage 1; foundations only.
+- Target: 24 December 2026; 26 calendar days remained on 28 November. ZERO COST is mandatory.
+- **OWNER OVERRIDE:** recurring 10-minute automation is cancelled. Do not create/reactivate cron-job.org, Cloudflare Cron, GitHub schedules or recurring relay dispatch. No autonomous background coding is running. The relay remains untouched/inert; external cron-job.org state is not accessible and must not be described as verified.
+- Runner workflows are NOT a background coding service. `preflight.yml` is manual/read-only and checks the application integration base, not PR #13. `ai-coding-runner.yml` is gated by stale Batch 91 owner input and old Project Brain matching; it does not currently write application code. `batch89-runtime-gate.yml` is a heavyweight manual validation of an old task and must not be dispatched for this checkpoint. AI audit/smoke workflows require Cloudflare credentials/model usage and are not assumed zero-cost; do not trigger them.
+- Android workflow in the app repo builds a debug APK only on manual dispatch or selected frontend changes; it does not build a final signed release APK for backend-only commits. Previous APK artifacts are not the final integrated app and are not device-accepted.
+- No status in older historical sections below overrides these facts. Re-read the live app PR, branch heads, acceptance matrix and exact-head Actions before any future work.
+
+---
+
+
 - Active app branch: `phase-2/market-data-foundation`; latest app status/documentation checkpoint commit: `a6a7fbc6235f463dd39c980c96639a967815c5b5`. Active-branch source/test baseline remains `41f42a232a25987513c175ea6d271ae5389b1437`; later active-branch commits in this reconciliation are documentation-only.
 - App `main` remains `e3841681bc69b73619058deaf939df82ae5116a1` and untouched.
 - Exact-head PR validation: PR #4 clickable Footprint UI tests, PR #9 compaction/replay fault injection, and PR #12 required-consumer registry/reactivation fix each have 4/4 required workflows SUCCESS on their stated current source/test heads. PR #7, #8, #10, #11 also retain exact-head 4/4 evidence.
